@@ -3,7 +3,8 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "StudentAdminPortal.UI": {
+    
+    "StudentAdminPortal": {
       "projectType": "application",
       "schematics": {},
       "root": "",
