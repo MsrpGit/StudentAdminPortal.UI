@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-3">BlogPost List</h1>
     <div class="d-flex justify-content-end mt-3">
-        <a routerLink="['/admin/blogposts/add']" class="btn btn-primary">Add BlogPost</a>
+        <a [routerLink]="['/admin/blogposts/add']" class="btn btn-primary">Add BlogPost</a>
     </div>
     <ng-container *ngIf="blogPosts$|async as blogPosts">
         <table class="table table-bordered mt-3">
