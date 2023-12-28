@@ -62,6 +62,7 @@
           "configurations": {
             "production": {
               "browserTarget": "StudentAdminPortal:build:production"
+             
             },
             "development": {
               "browserTarget": "StudentAdminPortal:build:development"
