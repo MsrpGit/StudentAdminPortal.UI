@@ -26,6 +26,8 @@ import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blog
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    AppRoutingModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

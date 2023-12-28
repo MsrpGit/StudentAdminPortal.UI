@@ -7,6 +7,7 @@ import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpo
 import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blogpost.component';
 import { RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
   { path: 'admin/categories', component: CategoryListComponent },
   { path: 'admin/categories/add', component: AddCategoryComponent },
