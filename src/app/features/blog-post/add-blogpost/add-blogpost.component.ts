@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AddBlogPost } from '../models/add-blog-post.model';
 import { BlogPostService } from '../services/blog-post.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../category/services/category.service';
+import { Observable, Subscription } from 'rxjs';
+import { Category } from '../../category/models/category.model';
+import { ImageService } from 'src/app/shared/components/image-selector/image.service';
 
 
 @Component({
@@ -9,11 +13,15 @@ import { Router } from '@angular/router';
   templateUrl: './add-blogpost.component.html',
   styleUrls: ['./add-blogpost.component.css']
 })
-export class AddBlogpostComponent {
+export class AddBlogpostComponent implements OnInit, OnDestroy {
 
   model: AddBlogPost;
+  categories$?: Observable<Category[]>;
+  isImageSelectorVisible: boolean = false;
+  imageSelectSubscription?: Subscription;
 
-  constructor(private blogpostService: BlogPostService, private router: Router) {
+  constructor(private blogpostService: BlogPostService, private router: Router,
+    private categoryService: CategoryService, private imageService: ImageService) {
     this.model = {
       title: '',
       shortDescription: '',
@@ -22,8 +30,24 @@ export class AddBlogpostComponent {
       featuredImageUrl: '',
       publishedDate: new Date(),
       isVisible: true,
-      author: ''
+      author: '',
+      categories: []
     };
+  }
+
+  ngOnDestroy(): void {
+    this.imageSelectSubscription?.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.categories$ = this.categoryService.getAllCategories();
+    this.imageSelectSubscription = this.imageService.onSelectIMage()
+      .subscribe({
+        next: (slectedImage) => {
+          this.model.featuredImageUrl = slectedImage.url;
+          this.closeImageSelector();
+        }
+      });
   }
 
   onFormSubmit() {
@@ -34,5 +58,14 @@ export class AddBlogpostComponent {
         }
       }
     );
+  }
+
+  openImageSelector(): void {
+    this.isImageSelectorVisible = true;
+  }
+
+  closeImageSelector(): void {
+    this.isImageSelectorVisible = false;
+
   }
 }
